@@ -559,12 +559,42 @@ export function PenReadyWorkbench() {
   )
 }
 
+/* ── 완성 볼펜 → 완성상자 근접 시 축소 스케일 훅 ── */
+export function usePenBoxScale(activePartId) {
+  const [scale, setScale] = useState(1)
+  useEffect(() => {
+    if (activePartId !== 'pen-complete') { setScale(1); return }
+    function onMove(e) {
+      const cx = e.touches ? e.touches[0].clientX : e.clientX
+      const cy = e.touches ? e.touches[0].clientY : e.clientY
+      const boxes = document.querySelectorAll('[data-box-zone]')
+      let minDist = Infinity
+      for (const box of boxes) {
+        const r = box.getBoundingClientRect()
+        const dx = Math.max(r.left - cx, 0, cx - r.right)
+        const dy = Math.max(r.top  - cy, 0, cy - r.bottom)
+        minDist = Math.min(minDist, Math.sqrt(dx * dx + dy * dy))
+      }
+      const t = Math.min(1, minDist / 200)   // 200px 이상 = 1.0, 박스 위 = 0.0
+      setScale(0.3 + t * 0.7)               // 0.3 ~ 1.0
+    }
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('touchmove', onMove, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('touchmove', onMove)
+    }
+  }, [activePartId])
+  return scale
+}
+
 /* ── 완성 상자 드롭 영역 ── */
 export function BoxZone({ penReady, pensDone, count, className = '', vertical = false }) {
   const { setNodeRef, isOver } = useDroppable({ id: 'zone-box', disabled: !penReady })
   return (
     <div
       ref={setNodeRef}
+      data-box-zone="true"
       className={`${styles.doneArea} ${penReady ? styles.doneAreaDroppable : ''} ${isOver ? styles.doneAreaOver : ''} ${className}`}
     >
       <p className={styles.doneAreaTitle}>

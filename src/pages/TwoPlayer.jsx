@@ -15,6 +15,7 @@ import {
   KnockWorkbench, InkrefillWorkbench, SpringWorkbench, ConeWorkbench,
   PenReadyWorkbench, BoxZone, FailModal,
   playDropSound, playSnapSound, playBoxSound,
+  usePenBoxScale,
 } from './AssemblyCore'
 
 /* ── 결과 모달 ── */
@@ -60,6 +61,7 @@ function PlayerPanel({ playerNum, count, onSubmit, submitted, timeOver }) {
   const char = CHARS[playerNum]
   const [activePartId, setActivePartId] = useState(null)
   const activePart = STEPS.find(s => s.id === activePartId) ?? null
+  const penBoxScale = usePenBoxScale(activePartId)
 
   const [step, setStep] = useState(0)
   const [pensDone, setPensDone] = useState(0)
@@ -295,7 +297,7 @@ function PlayerPanel({ playerNum, count, onSubmit, submitted, timeOver }) {
             }}
           />
         ) : activePartId === 'pen-complete' ? (
-          <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible' }}>
+          <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible', transform: `scale(${penBoxScale})`, transition: 'transform 0.12s ease-out', transformOrigin: 'center center' }}>
             <img
               src="/parts/pen-complete.svg"
               alt="완성된 볼펜"

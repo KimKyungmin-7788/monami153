@@ -9,6 +9,7 @@ import {
   KnockWorkbench, InkrefillWorkbench, SpringWorkbench, ConeWorkbench,
   PenReadyWorkbench, BoxZone,
   playDropSound, playSnapSound, playBoxSound, playFanfareSound,
+  usePenBoxScale,
 } from './AssemblyCore'
 
 /* ── TTS ── */
@@ -418,6 +419,7 @@ function Stage2({ onNext, onBack }) {
 function Stage3({ onDone, onBack }) {
   const [activePartId, setActivePartId] = useState(null)
   const activePart = STEPS.find(s => s.id === activePartId) ?? null
+  const penBoxScale = usePenBoxScale(activePartId)
 
   const [step, setStep]             = useState(0)
   const [pensDone, setPensDone]     = useState(0)
@@ -644,7 +646,7 @@ function Stage3({ onDone, onBack }) {
               }}
             />
           ) : activePartId === 'pen-complete' ? (
-            <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible' }}>
+            <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible', transform: `scale(${penBoxScale})`, transition: 'transform 0.12s ease-out', transformOrigin: 'center center' }}>
               <img
                 src="/parts/pen-complete.svg"
                 alt="완성된 볼펜"

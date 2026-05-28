@@ -8,6 +8,7 @@ import {
   KnockWorkbench, InkrefillWorkbench, SpringWorkbench, ConeWorkbench,
   PenReadyWorkbench, BoxZone, DoneModal, FailModal,
   playDropSound, playSnapSound, playBoxSound,
+  usePenBoxScale,
 } from './AssemblyCore'
 
 export default function Assembly() {
@@ -17,6 +18,7 @@ export default function Assembly() {
 
   const [activePartId, setActivePartId] = useState(null)
   const activePart = STEPS.find(s => s.id === activePartId) ?? null
+  const penBoxScale = usePenBoxScale(activePartId)
 
   const [step, setStep] = useState(0)
   const [pensDone, setPensDone] = useState(0)
@@ -267,8 +269,8 @@ export default function Assembly() {
               pointerEvents: 'none', cursor: 'grabbing', userSelect: 'none',
             }} />
           ) : activePartId === 'pen-complete' ? (
-            /* 완성 볼펜: vertWrap과 동일한 세로 방향 */
-            <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible' }}>
+            /* 완성 볼펜: 세로 방향 + 박스 근접 시 축소 */
+            <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible', transform: `scale(${penBoxScale})`, transition: 'transform 0.12s ease-out', transformOrigin: 'center center' }}>
               <img src="/parts/pen-complete.svg" alt="완성된 볼펜" style={{
                 position: 'absolute', width: '280px', height: '48px',
                 top: '50%', left: '50%',
