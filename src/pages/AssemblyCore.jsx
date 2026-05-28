@@ -208,7 +208,7 @@ export function SparkleEffect() {
 }
 
 /* ── 드래그 가능한 부품 (트레이용) ── */
-export function DraggablePart({ id, label, img, size, stackCount, disabled }) {
+export function DraggablePart({ id, label, img, size, stackCount, disabled, vertical = false }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id, disabled })
   return (
     <div className={`${styles.stackWrap} ${disabled ? styles.stackDisabled : ''}`}>
@@ -224,7 +224,13 @@ export function DraggablePart({ id, label, img, size, stackCount, disabled }) {
         {...(disabled ? {} : listeners)}
         {...(disabled ? {} : attributes)}
       >
-        <img src={img} alt={label} className={styles.partImg} />
+        {vertical ? (
+          <div className={styles.partImgWrapVert}>
+            <img src={img} alt={label} className={styles.partImgVert} />
+          </div>
+        ) : (
+          <img src={img} alt={label} className={styles.partImg} />
+        )}
         {stackCount > 0 && <span className={styles.stackBadge}>{stackCount}</span>}
         <span className={styles.partLabel}>{label}</span>
       </div>
@@ -363,10 +369,10 @@ export function InkrefillWorkbench({ assembled, isDraggingInkrefill, inkSub, onA
         <>
           <div className={styles.vertWrap}>
             <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.vertPenImg} />
+            {showGhost && (
+              <img src={inkrefillStep.img} alt="잉크심 미리보기" className={styles.inkGhostVert} />
+            )}
           </div>
-          {showGhost && (
-            <img src={inkrefillStep.img} alt="잉크심 미리보기" className={styles.vertGhost} />
-          )}
         </>
       ) : (
         <span className={styles.workDropLabel}>여기에 놓으세요</span>
@@ -402,10 +408,10 @@ export function SpringWorkbench({ assembled, isDraggingSpring, springSub, onAdva
         <>
           <div className={styles.vertWrap}>
             <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.vertPenImg} />
+            {showGhost && (
+              <img src="/parts/barrel-spring.svg" alt="스프링 미리보기" className={styles.springGhostVert} />
+            )}
           </div>
-          {showGhost && (
-            <img src="/parts/barrel-spring.svg" alt="스프링 미리보기" className={styles.vertGhost} />
-          )}
         </>
       ) : (
         <span className={styles.workDropLabel}>여기에 놓으세요</span>
@@ -509,7 +515,7 @@ export function ConeWorkbench({ assembled, isDraggingCone, coneSub, onAdvance })
           <div
             ref={arrowRef}
             className={styles.coneArrowOverlayVert}
-            style={{ transform: `translate(-50%, 50%) rotate(${arrowRotation}deg)` }}
+            style={{ transform: `translate(-50%, -50%) rotate(${arrowRotation}deg)` }}
           >
             <img src="/parts/rotate-arrow.svg" alt="돌리기" className={styles.coneArrowImg} />
           </div>

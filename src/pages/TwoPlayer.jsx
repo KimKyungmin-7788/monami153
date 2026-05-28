@@ -172,6 +172,7 @@ function PlayerPanel({ playerNum, count, onSubmit, submitted, timeOver }) {
                     size={s.size}
                     stackCount={cnt}
                     disabled={!isCurrentStep || penReady || submitted || timeOver}
+                    vertical={['inkrefill', 'spring', 'cone'].includes(s.id)}
                   />
                 )
               })}

@@ -168,6 +168,7 @@ export default function Assembly() {
                       size={s.size}
                       stackCount={cnt}
                       disabled={!isCurrentStep || penReady}
+                    vertical={['inkrefill', 'spring', 'cone'].includes(s.id)}
                     />
                   )
                 })}

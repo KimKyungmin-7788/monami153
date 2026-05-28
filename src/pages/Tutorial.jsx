@@ -536,6 +536,7 @@ function Stage3({ onDone, onBack }) {
                       size={s.size}
                       stackCount={cnt}
                       disabled={!isCurrentStep || penReady}
+                      vertical={['inkrefill', 'spring', 'cone'].includes(s.id)}
                     />
                   )
                 })}
