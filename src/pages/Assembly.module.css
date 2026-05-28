@@ -1072,28 +1072,28 @@
 /* 잉크심·스프링 공통 세로 래퍼 */
 .vertWrap {
   position: relative;
-  width: 30px;
-  height: 170px;
-  overflow: visible;   /* ghost 이미지가 wrapper 경계 넘어 보일 수 있도록 */
-  flex-shrink: 0;
-  margin: auto;
-}
-
-/* 선축 세로 래퍼 — 화살표가 아래로 삐져나와야 해서 overflow:visible */
-.coneVertWrap {
-  position: relative;
-  width: 30px;
-  height: 170px;
+  width: 48px;             /* 회전 후 시각적 폭 */
+  height: 320px;           /* 회전 후 시각적 길이 (가로 knockDoneImg ~82% 크기에 맞춤) */
   overflow: visible;
   flex-shrink: 0;
   margin: auto;
 }
 
-/* 세로 펜 이미지: 가로 SVG를 -90° 회전해 세로로 표시 */
+/* 선축 세로 래퍼 */
+.coneVertWrap {
+  position: relative;
+  width: 48px;
+  height: 320px;
+  overflow: visible;
+  flex-shrink: 0;
+  margin: auto;
+}
+
+/* 세로 펜 이미지: width=컨테이너높이, height=컨테이너폭 → rotate 90deg 후 세로로 표시 */
 .vertPenImg {
   position: absolute;
-  width: 170px;           /* → 회전 후 시각적 높이 */
-  height: 29px;           /* ≈ 170 / 5.87 (펜 SVG 비율) → 회전 후 시각적 폭 */
+  width: 320px;
+  height: 48px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
@@ -1105,8 +1105,8 @@
 /* 세로 완성 이미지 (잉크심·스프링 완료 단계) */
 .vertDoneImg {
   position: absolute;
-  width: 170px;
-  height: 29px;
+  width: 320px;
+  height: 48px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
@@ -1119,11 +1119,10 @@
 /* 잉크심 ghost: 배럴 상단(펜 촉 끝)에 삽입되는 것처럼 절대 배치 */
 .inkGhostVert {
   position: absolute;
-  width: 133px;       /* ≈ 78% × 170px (배럴 길이의 78%) */
-  height: 22px;
+  width: 250px;            /* ≈ 78% × 320px */
+  height: 40px;
   top: 50%;
   left: 50%;
-  /* translate(-50%, -55%): 중심을 배럴 상단 쪽으로 이동 */
   transform: translate(-50%, -55%) rotate(90deg);
   object-fit: contain;
   opacity: 0.44;
@@ -1131,11 +1130,11 @@
   filter: drop-shadow(0 0 4px rgba(82, 183, 136, 0.55));
 }
 
-/* 스프링 ghost: barrel-spring.svg 를 배럴 이미지 위에 동일 위치 오버레이 */
+/* 스프링 ghost: barrel-spring.svg 오버레이 */
 .springGhostVert {
   position: absolute;
-  width: 170px;
-  height: 29px;
+  width: 320px;
+  height: 48px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
@@ -1148,8 +1147,8 @@
 /* 선축 세로 이미지 (base / final 공통) */
 .coneFadeVert {
   position: absolute;
-  width: 170px;
-  height: 29px;
+  width: 320px;
+  height: 48px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
@@ -1158,11 +1157,11 @@
   pointer-events: none;
 }
 
-/* 선축 ghost (드래그 hover, coneVertWrap 내부) */
+/* 선축 ghost (드래그 hover) */
 .coneGhostVert {
   position: absolute;
-  width: 170px;
-  height: 29px;
+  width: 320px;
+  height: 48px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
