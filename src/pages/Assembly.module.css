@@ -1001,7 +1001,8 @@
 
 /* ══════════════════════════════════════════════════
    세로 모드 (노크 완료 후: 잉크심 → 스프링 → 선축 → 완성 대기)
-   원리: 가로 SVG를 position:absolute + rotate(-90deg) 로 세로 표시
+   원리: 가로 SVG를 position:absolute + rotate(90deg) 로 세로 표시
+   (노크가 아래, 펜 촉이 위)
 ══════════════════════════════════════════════════ */
 
 /* 잉크심·스프링 공통 세로 래퍼 */
@@ -1031,7 +1032,7 @@
   height: 29px;           /* ≈ 170 / 5.87 (펜 SVG 비율) → 회전 후 시각적 폭 */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   object-fit: contain;
   display: block;
   pointer-events: none;
@@ -1044,7 +1045,7 @@
   height: 29px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   object-fit: contain;
   display: block;
   pointer-events: none;
@@ -1057,7 +1058,7 @@
   max-height: 22px;
   width: auto;
   height: auto;
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
   opacity: 0.44;
   pointer-events: none;
   object-fit: contain;
@@ -1072,7 +1073,7 @@
   height: 29px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   object-fit: contain;
   display: block;
   pointer-events: none;
@@ -1085,7 +1086,7 @@
   height: 29px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   object-fit: contain;
   opacity: 0.52;
   pointer-events: none;
@@ -1112,7 +1113,7 @@
   max-height: 29px;
   width: auto;
   height: auto;
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
   object-fit: contain;
   pointer-events: none;
   display: block;
@@ -1147,7 +1148,7 @@
   height: 18px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   object-fit: contain;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
 }
