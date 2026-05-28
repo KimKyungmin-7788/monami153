@@ -1,0 +1,247 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 480px;
+  height: 480px;
+  background: var(--yellow);
+  border-radius: 50%;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 타이틀 박스 */
+.titleBox {
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--r-card);
+  padding: 1.4rem 2rem 1.6rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.titleContent {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* 브랜드 로고 */
+.brandLogo {
+  height: 57px;
+  width: auto;
+  object-fit: contain;
+}
+
+.titleMain {
+  font-size: clamp(2.52rem, 7.2vw, 3.24rem);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* 튜토리얼 버튼 */
+.tutorialBtn {
+  background: var(--white);
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.85rem 2.4rem;
+  border-radius: var(--r-pill);
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tutorialBtn:hover {
+  border-color: var(--green);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 모드 카드 그리드 */
+.modeGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modeCard {
+  background: var(--white);
+  border-radius: var(--r-card);
+  padding: 1.4rem 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  box-shadow: var(--shadow);
+  border: 3px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.mintCard { background: var(--mint); }
+.pinkCard { background: var(--pink); }
+
+.modeCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.modeSelected {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.2);
+}
+
+/* 캐릭터 영역 — 고정 높이로 글자 정렬선 통일 */
+.characterArea {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.character {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+}
+
+.characterSm {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.modeLabel {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 0.75rem;
+}
+
+/* 옵션 행 */
+.optionRow {
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--r-card);
+  padding: 1rem 1.6rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.optionLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.chipGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.chip {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--r-pill);
+  border: 2px solid var(--border);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: var(--green);
+}
+
+.chipOn {
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
+
+/* 수동입력 → 인라인 input */
+.inlineInput {
+  height: 38px;
+  width: 90px;
+  padding: 0 0.9rem;
+  border-radius: var(--r-pill);
+  border: 2.5px solid var(--green);
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+}
+
+.inlineInput::placeholder {
+  color: var(--text-sub);
+  font-weight: 400;
+}
+
+/* 시작 버튼 */
+.startBtn {
+  width: 100%;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 1.4rem;
+  border-radius: var(--r-pill);
+  box-shadow: 0 6px 24px rgba(82, 183, 136, 0.45);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.startBtn:hover:not(.startDisabled) {
+  background: var(--green-dark);
+  box-shadow: 0 10px 36px rgba(82, 183, 136, 0.5);
+  transform: translateY(-3px);
+}
+
+.startDisabled {
+  background: var(--border);
+  color: var(--text-sub);
+  box-shadow: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: not-allowed;
+}

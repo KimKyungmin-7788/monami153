@@ -1,0 +1,50 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #FBF8F0;
+  --yellow: #FFD60A;
+  --yellow-light: #FFF3C4;
+  --green: #52B788;
+  --green-dark: #40916C;
+  --mint: #C8F0E8;
+  --pink: #FFD6E0;
+  --cream: #FFF3D6;
+  --text: #2D2D2D;
+  --text-sub: #7A7A7A;
+  --white: #FFFFFF;
+  --border: #E8E4DC;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --r-card: 24px;
+  --r-pill: 999px;
+  --r-btn: 16px;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+#root {
+  height: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input {
+  font-family: inherit;
+  outline: none;
+}
