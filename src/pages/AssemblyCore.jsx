@@ -350,7 +350,9 @@ export function InkrefillWorkbench({ assembled, isDraggingInkrefill, inkSub, onA
   if (inkSub === 1) {
     return (
       <div className={styles.workDrop}>
-        <img src="/parts/barrel-inked.svg" alt="잉크심 삽입 완료" className={styles.inkDoneImg} />
+        <div className={styles.vertWrap}>
+          <img src="/parts/barrel-inked.svg" alt="잉크심 삽입 완료" className={styles.vertDoneImg} />
+        </div>
       </div>
     )
   }
@@ -358,10 +360,14 @@ export function InkrefillWorkbench({ assembled, isDraggingInkrefill, inkSub, onA
   return (
     <div ref={setNodeRef} className={`${styles.workDrop} ${isOver ? styles.workDropOver : ''}`}>
       {assembledImgs.length > 0 ? (
-        <div className={styles.inkrefillBarrelWrap}>
-          <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.inkrefillBarrelImg} />
-          {showGhost && <img src={inkrefillStep.img} alt="잉크심 미리보기" className={styles.inkrefillGhost} />}
-        </div>
+        <>
+          <div className={styles.vertWrap}>
+            <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.vertPenImg} />
+          </div>
+          {showGhost && (
+            <img src={inkrefillStep.img} alt="잉크심 미리보기" className={styles.vertGhost} />
+          )}
+        </>
       ) : (
         <span className={styles.workDropLabel}>여기에 놓으세요</span>
       )}
@@ -383,7 +389,9 @@ export function SpringWorkbench({ assembled, isDraggingSpring, springSub, onAdva
   if (springSub === 1) {
     return (
       <div className={styles.workDrop}>
-        <img src="/parts/barrel-spring-done.svg" alt="스프링 조립 완료" className={styles.inkDoneImg} />
+        <div className={styles.vertWrap}>
+          <img src="/parts/barrel-spring-done.svg" alt="스프링 조립 완료" className={styles.vertDoneImg} />
+        </div>
       </div>
     )
   }
@@ -391,10 +399,14 @@ export function SpringWorkbench({ assembled, isDraggingSpring, springSub, onAdva
   return (
     <div ref={setNodeRef} className={`${styles.workDrop} ${isOver ? styles.workDropOver : ''}`}>
       {assembledImgs.length > 0 ? (
-        <div className={styles.inkrefillBarrelWrap}>
-          <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.inkrefillBarrelImg} />
-          {showGhost && <img src="/parts/barrel-spring.svg" alt="스프링 미리보기" className={styles.springGhost} />}
-        </div>
+        <>
+          <div className={styles.vertWrap}>
+            <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.vertPenImg} />
+          </div>
+          {showGhost && (
+            <img src="/parts/barrel-spring.svg" alt="스프링 미리보기" className={styles.vertGhost} />
+          )}
+        </>
       ) : (
         <span className={styles.workDropLabel}>여기에 놓으세요</span>
       )}
@@ -481,8 +493,8 @@ export function ConeWorkbench({ assembled, isDraggingCone, coneSub, onAdvance })
   if (coneDone) {
     return (
       <div className={styles.workDrop} style={{ position: 'relative', overflow: 'visible' }}>
-        <div className={styles.coneCrossfadeWrap}>
-          <img src="/parts/barrel-cone-final.svg" alt="선축 완전 조립" className={styles.coneFadeBase} />
+        <div className={styles.coneVertWrap}>
+          <img src="/parts/barrel-cone-final.svg" alt="선축 완전 조립" className={styles.coneFadeVert} />
         </div>
         <SparkleEffect />
       </div>
@@ -491,10 +503,14 @@ export function ConeWorkbench({ assembled, isDraggingCone, coneSub, onAdvance })
   if (coneSub === 1) {
     return (
       <div className={styles.workDrop}>
-        <div className={styles.coneCrossfadeWrap}>
-          <img src="/parts/barrel-cone-done.svg" alt="선축 위치" className={styles.coneFadeBase} style={{ opacity: 1 - progress }} />
-          <img src="/parts/barrel-cone-final.svg" alt="선축 삽입 중" className={styles.coneFadeFinal} style={{ opacity: progress }} />
-          <div ref={arrowRef} className={styles.coneArrowOverlay} style={{ transform: `translate(-50%, -50%) rotate(${arrowRotation}deg)` }}>
+        <div className={styles.coneVertWrap}>
+          <img src="/parts/barrel-cone-done.svg" alt="선축 위치" className={styles.coneFadeVert} style={{ opacity: 1 - progress }} />
+          <img src="/parts/barrel-cone-final.svg" alt="선축 삽입 중" className={styles.coneFadeVert} style={{ opacity: progress }} />
+          <div
+            ref={arrowRef}
+            className={styles.coneArrowOverlayVert}
+            style={{ transform: `translate(-50%, 50%) rotate(${arrowRotation}deg)` }}
+          >
             <img src="/parts/rotate-arrow.svg" alt="돌리기" className={styles.coneArrowImg} />
           </div>
         </div>
@@ -508,9 +524,9 @@ export function ConeWorkbench({ assembled, isDraggingCone, coneSub, onAdvance })
   return (
     <div ref={setDropRef} className={`${styles.workDrop} ${isOver ? styles.workDropOver : ''}`}>
       {assembledImgs.length > 0 ? (
-        <div className={styles.coneCrossfadeWrap}>
-          <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.coneFadeBase} />
-          {showGhost && <img src="/parts/barrel-cone-done.svg" alt="선축 미리보기" className={styles.coneGhostFull} />}
+        <div className={styles.coneVertWrap}>
+          <img src={assembledImgs[0].src} alt={assembledImgs[0].alt} className={styles.coneFadeVert} />
+          {showGhost && <img src="/parts/barrel-cone-done.svg" alt="선축 미리보기" className={styles.coneGhostVert} />}
         </div>
       ) : (
         <span className={styles.workDropLabel}>여기에 놓으세요</span>
@@ -524,10 +540,13 @@ export function PenReadyWorkbench() {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: 'pen-complete' })
   return (
     <div className={styles.workDrop}>
-      <div ref={setNodeRef} {...listeners} {...attributes}
+      <div
+        ref={setNodeRef} {...listeners} {...attributes}
         className={`${styles.penReadyCard} ${isDragging ? styles.penReadyGhost : ''}`}
       >
-        <img src="/parts/pen-complete.svg" alt="완성된 볼펜" className={styles.penReadyImg} />
+        <div className={styles.vertWrap}>
+          <img src="/parts/pen-complete.svg" alt="완성된 볼펜" className={styles.vertPenImg} style={{ pointerEvents: 'none' }} />
+        </div>
         <span className={styles.penReadyLabel}>완성! 상자에 넣어주세요</span>
       </div>
     </div>
@@ -535,10 +554,11 @@ export function PenReadyWorkbench() {
 }
 
 /* ── 완성 상자 드롭 영역 ── */
-export function BoxZone({ penReady, pensDone, count, className = '' }) {
+export function BoxZone({ penReady, pensDone, count, className = '', vertical = false }) {
   const { setNodeRef, isOver } = useDroppable({ id: 'zone-box', disabled: !penReady })
   return (
-    <div ref={setNodeRef}
+    <div
+      ref={setNodeRef}
       className={`${styles.doneArea} ${penReady ? styles.doneAreaDroppable : ''} ${isOver ? styles.doneAreaOver : ''} ${className}`}
     >
       <p className={styles.doneAreaTitle}>
@@ -546,11 +566,21 @@ export function BoxZone({ penReady, pensDone, count, className = '' }) {
         <span className={styles.boxCount}> ({pensDone}/{count}개)</span>
         {penReady && <span className={styles.boxHint}> — 볼펜을 여기에 넣어주세요</span>}
       </p>
-      <div className={styles.donePenRow}>
-        {Array.from({ length: pensDone }).map((_, i) => (
-          <img key={i} src="/parts/pen-complete.svg" alt={`완성 볼펜 ${i + 1}`} className={styles.donePenImg} />
-        ))}
-      </div>
+      {vertical ? (
+        <div className={styles.donePenRowVert}>
+          {Array.from({ length: pensDone }).map((_, i) => (
+            <div key={i} className={styles.donePenWrapVert}>
+              <img src="/parts/pen-complete.svg" alt={`완성 볼펜 ${i + 1}`} className={styles.donePenImgVert} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className={styles.donePenRow}>
+          {Array.from({ length: pensDone }).map((_, i) => (
+            <img key={i} src="/parts/pen-complete.svg" alt={`완성 볼펜 ${i + 1}`} className={styles.donePenImg} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

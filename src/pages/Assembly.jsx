@@ -203,7 +203,7 @@ export default function Assembly() {
           </div>
 
           {/* ── 완성 상자 (항상 표시, 분홍 테두리) ── */}
-          <BoxZone penReady={penReady} pensDone={pensDone} count={count} className={styles.doneAreaSolo} />
+          <BoxZone penReady={penReady} pensDone={pensDone} count={count} className={styles.doneAreaSolo} vertical />
 
           {/* ── 납품하기 버튼 ── */}
           <button

@@ -576,6 +576,7 @@ function Stage3({ onDone, onBack }) {
             pensDone={pensDone}
             count={count}
             className={`${asmStyles.doneAreaSolo} ${tutoStep === 3 ? styles.tutoHighlight : ''}`}
+            vertical
           />
 
           {/* 납품하기 버튼 */}

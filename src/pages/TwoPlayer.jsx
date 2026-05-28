@@ -229,7 +229,7 @@ function PlayerPanel({ playerNum, count, onSubmit, submitted, timeOver }) {
 
         {/* 완성 상자 + 납품하기 버튼 (항상 표시, 하단 푸터) */}
         <div className={twoStyles.panelFooter}>
-          <BoxZone penReady={penReady} pensDone={pensDone} count={count} />
+          <BoxZone penReady={penReady} pensDone={pensDone} count={count} vertical />
           <button
             className={`${twoStyles.deliverBtn} ${submitted ? twoStyles.deliverDone : !canSubmit ? twoStyles.deliverDisabled : ''}`}
             disabled={!canSubmit || timeOver || submitted}

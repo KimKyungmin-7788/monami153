@@ -998,3 +998,156 @@
   border: 2.5px solid #f9a8c0;
   background: #fff6f9;
 }
+
+/* ══════════════════════════════════════════════════
+   세로 모드 (노크 완료 후: 잉크심 → 스프링 → 선축 → 완성 대기)
+   원리: 가로 SVG를 position:absolute + rotate(-90deg) 로 세로 표시
+══════════════════════════════════════════════════ */
+
+/* 잉크심·스프링 공통 세로 래퍼 */
+.vertWrap {
+  position: relative;
+  width: 30px;
+  height: 170px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: auto;
+}
+
+/* 선축 세로 래퍼 — 화살표가 아래로 삐져나와야 해서 overflow:visible */
+.coneVertWrap {
+  position: relative;
+  width: 30px;
+  height: 170px;
+  overflow: visible;
+  flex-shrink: 0;
+  margin: auto;
+}
+
+/* 세로 펜 이미지: 가로 SVG를 -90° 회전해 세로로 표시 */
+.vertPenImg {
+  position: absolute;
+  width: 170px;           /* → 회전 후 시각적 높이 */
+  height: 29px;           /* ≈ 170 / 5.87 (펜 SVG 비율) → 회전 후 시각적 폭 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* 세로 완성 이미지 (잉크심·스프링 완료 단계) */
+.vertDoneImg {
+  position: absolute;
+  width: 170px;
+  height: 29px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  animation: knockDoneFadeIn 0.35s ease-out;
+}
+
+/* 세로 ghost (잉크심·스프링 드래그 hover 보조 안내) */
+.vertGhost {
+  max-width: 130px;
+  max-height: 22px;
+  width: auto;
+  height: auto;
+  transform: rotate(-90deg);
+  opacity: 0.44;
+  pointer-events: none;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(82, 183, 136, 0.55));
+  flex-shrink: 0;
+}
+
+/* 선축 세로 이미지 (base / final 공통) */
+.coneFadeVert {
+  position: absolute;
+  width: 170px;
+  height: 29px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+/* 선축 ghost (드래그 hover, coneVertWrap 내부) */
+.coneGhostVert {
+  position: absolute;
+  width: 170px;
+  height: 29px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  object-fit: contain;
+  opacity: 0.52;
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(82, 183, 136, 0.5));
+}
+
+/* 선축 회전 화살표 — 세로 모드: 볼펜 하단(펜 촉 끝)에 배치 */
+.coneArrowOverlayVert {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  /* inline: transform: translate(-50%, 50%) rotate(Xdeg) */
+}
+.coneArrowOverlayVert:active { cursor: grabbing; }
+
+/* 완성 볼펜 대기 — 세로 펜 이미지 */
+.penReadyImgVert {
+  max-width: 170px;
+  max-height: 29px;
+  width: auto;
+  height: auto;
+  transform: rotate(-90deg);
+  object-fit: contain;
+  pointer-events: none;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* 완성 상자 세로 펜 행 */
+.donePenRowVert {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 90px;
+  padding: 0.25rem 0;
+}
+
+/* 완성 상자 세로 볼펜 래퍼 */
+.donePenWrapVert {
+  position: relative;
+  width: 18px;
+  height: 100px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* 완성 상자 세로 볼펜 이미지 */
+.donePenImgVert {
+  position: absolute;
+  width: 100px;
+  height: 18px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
+}
