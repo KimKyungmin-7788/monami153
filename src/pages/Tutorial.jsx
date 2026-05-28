@@ -610,7 +610,18 @@ function Stage3({ onDone, onBack }) {
 
         {/* 드래그 오버레이 */}
         <DragOverlay dropAnimation={null}>
-          {activePart && ['inkrefill', 'spring', 'cone'].includes(activePart.id) ? (
+          {activePart && activePart.id === 'inkrefill' ? (
+            <div style={{ position: 'relative', width: '26px', height: '160px', overflow: 'visible' }}>
+              <img src={activePart.img} alt={activePart.label} style={{
+                position: 'absolute', width: '160px', height: '26px',
+                top: '50%', left: '50%',
+                transform: 'translate(-50%, -50%) rotate(90deg)',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.28))',
+                pointerEvents: 'none', cursor: 'grabbing', userSelect: 'none',
+              }} />
+            </div>
+          ) : activePart && ['spring', 'cone'].includes(activePart.id) ? (
             <div style={{ position: 'relative', width: '18px', height: '80px', overflow: 'visible' }}>
               <img src={activePart.img} alt={activePart.label} style={{
                 position: 'absolute', width: '80px', height: '18px',
@@ -633,15 +644,20 @@ function Stage3({ onDone, onBack }) {
               }}
             />
           ) : activePartId === 'pen-complete' ? (
-            <img
-              src="/parts/pen-complete.svg"
-              alt="완성된 볼펜"
-              style={{
-                maxWidth: '200px', width: 'auto', height: 'auto', objectFit: 'contain',
-                filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.3))',
-                pointerEvents: 'none', cursor: 'grabbing', userSelect: 'none',
-              }}
-            />
+            <div style={{ position: 'relative', width: '48px', height: '280px', overflow: 'visible' }}>
+              <img
+                src="/parts/pen-complete.svg"
+                alt="완성된 볼펜"
+                style={{
+                  position: 'absolute', width: '280px', height: '48px',
+                  top: '50%', left: '50%',
+                  transform: 'translate(-50%, -50%) rotate(90deg)',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.3))',
+                  pointerEvents: 'none', cursor: 'grabbing', userSelect: 'none',
+                }}
+              />
+            </div>
           ) : null}
         </DragOverlay>
       </DndContext>

@@ -447,6 +447,12 @@
   to   { opacity: 1; transform: scale(1);    }
 }
 
+/* 세로 이미지 전용: transform 건드리지 않고 opacity만 fade-in */
+@keyframes vertFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* 축이 노크를 받아들이는 순간 살짝 밝아짐 */
 .knockBarrelAccept {
   animation: barrelAccept 0.5s ease-out 0.25s;
@@ -1113,7 +1119,7 @@
   object-fit: contain;
   display: block;
   pointer-events: none;
-  animation: knockDoneFadeIn 0.35s ease-out;
+  animation: vertFadeIn 0.35s ease-out;
 }
 
 /* 잉크심 ghost: 배럴 상단(펜 촉 끝)에 삽입되는 것처럼 절대 배치 */
