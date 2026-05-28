@@ -132,6 +132,40 @@
   align-items: start;
 }
 
+/* ── 트레이 이미지 배치 레이아웃 (축→잉크심+노크/스프링/선축) ── */
+.trayLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.traySlotBottom {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  align-items: stretch;
+}
+.traySlotLeft {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+.traySlotRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+/* 잉크심 카드: 우측 열 높이만큼 늘어남 */
+.stackWrapTall {
+  height: 100%;
+  padding-bottom: 0;
+}
+.partCardTall {
+  height: 100%;
+}
+
 /* ── 스택 래퍼 ── */
 .stackWrap {
   position: relative;
@@ -212,6 +246,26 @@
 .partLg .partImg { max-height: 60px; }
 .partSm .partImg { max-height: 36px; }
 .partXs .partImg { max-height: 22px; }
+
+/* 트레이 세로 부품 (잉크심·스프링·선축) */
+.partImgWrapVert {
+  position: relative;
+  width: 14px;
+  height: 58px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.partImgVert {
+  position: absolute;
+  width: 58px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
 
 .partLabel {
   font-size: 0.8rem;
@@ -1010,7 +1064,7 @@
   position: relative;
   width: 30px;
   height: 170px;
-  overflow: hidden;
+  overflow: visible;   /* ghost 이미지가 wrapper 경계 넘어 보일 수 있도록 */
   flex-shrink: 0;
   margin: auto;
 }
@@ -1052,18 +1106,33 @@
   animation: knockDoneFadeIn 0.35s ease-out;
 }
 
-/* 세로 ghost (잉크심·스프링 드래그 hover 보조 안내) */
-.vertGhost {
-  max-width: 130px;
-  max-height: 22px;
-  width: auto;
-  height: auto;
-  transform: rotate(90deg);
+/* 잉크심 ghost: 배럴 상단(펜 촉 끝)에 삽입되는 것처럼 절대 배치 */
+.inkGhostVert {
+  position: absolute;
+  width: 133px;       /* ≈ 78% × 170px (배럴 길이의 78%) */
+  height: 22px;
+  top: 50%;
+  left: 50%;
+  /* translate(-50%, -55%): 중심을 배럴 상단 쪽으로 이동 */
+  transform: translate(-50%, -55%) rotate(90deg);
+  object-fit: contain;
   opacity: 0.44;
   pointer-events: none;
-  object-fit: contain;
   filter: drop-shadow(0 0 4px rgba(82, 183, 136, 0.55));
-  flex-shrink: 0;
+}
+
+/* 스프링 ghost: barrel-spring.svg 를 배럴 이미지 위에 동일 위치 오버레이 */
+.springGhostVert {
+  position: absolute;
+  width: 170px;
+  height: 29px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  object-fit: contain;
+  opacity: 0.44;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(82, 183, 136, 0.4));
 }
 
 /* 선축 세로 이미지 (base / final 공통) */
@@ -1093,17 +1162,17 @@
   filter: drop-shadow(0 0 5px rgba(82, 183, 136, 0.5));
 }
 
-/* 선축 회전 화살표 — 세로 모드: 볼펜 하단(펜 촉 끝)에 배치 */
+/* 선축 회전 화살표 — 세로 모드: 선축이 있는 상단(펜 촉)에 배치 */
 .coneArrowOverlayVert {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 50%;
   width: 56px;
   height: 56px;
   cursor: grab;
   user-select: none;
   touch-action: none;
-  /* inline: transform: translate(-50%, 50%) rotate(Xdeg) */
+  /* inline: transform: translate(-50%, -50%) rotate(Xdeg) */
 }
 .coneArrowOverlayVert:active { cursor: grabbing; }
 

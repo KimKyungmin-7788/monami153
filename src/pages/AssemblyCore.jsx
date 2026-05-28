@@ -208,10 +208,10 @@ export function SparkleEffect() {
 }
 
 /* ── 드래그 가능한 부품 (트레이용) ── */
-export function DraggablePart({ id, label, img, size, stackCount, disabled, vertical = false }) {
+export function DraggablePart({ id, label, img, size, stackCount, disabled, vertical = false, tall = false }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id, disabled })
   return (
-    <div className={`${styles.stackWrap} ${disabled ? styles.stackDisabled : ''}`}>
+    <div className={`${styles.stackWrap} ${tall ? styles.stackWrapTall : ''} ${disabled ? styles.stackDisabled : ''}`}>
       {stackCount > 1 && (
         <>
           {stackCount > 2 && <div className={`${styles.stackCard} ${styles.stackCard3}`} />}
@@ -220,7 +220,7 @@ export function DraggablePart({ id, label, img, size, stackCount, disabled, vert
       )}
       <div
         ref={setNodeRef}
-        className={`${styles.partCard} ${size === 'lg' ? styles.partLg : size === 'xs' ? styles.partXs : styles.partSm} ${!disabled ? styles.partActive : ''} ${isDragging ? styles.partGhost : ''}`}
+        className={`${styles.partCard} ${size === 'lg' ? styles.partLg : size === 'xs' ? styles.partXs : styles.partSm} ${!disabled ? styles.partActive : ''} ${isDragging ? styles.partGhost : ''} ${tall ? styles.partCardTall : ''}`}
         {...(disabled ? {} : listeners)}
         {...(disabled ? {} : attributes)}
       >

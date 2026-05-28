@@ -147,32 +147,49 @@ export default function Assembly() {
             {/* 왼쪽: 부품 트레이 */}
             <div className={styles.tray}>
               <p className={styles.trayTitle}>부품 트레이</p>
-              <div className={styles.trayGrid}>
-                {STEPS.map((s, i) => {
-                  const isCurrentStep = i === step
-                  const isDone = i < step
-                  // 작업대에 배치된 순간 즉시 숨김 (step 전환 딜레이 방지)
-                  const isPlaced =
-                    (s.id === 'knock'     && knockSub >= 1) ||
-                    (s.id === 'inkrefill' && inkSub >= 1)   ||
-                    (s.id === 'spring'    && springSub >= 1) ||
-                    (s.id === 'cone'      && coneSub >= 1)
-                  const cnt = (isDone || isPlaced) ? 0 : remainCount()
-                  if (cnt === 0) return null
-                  return (
-                    <DraggablePart
-                      key={s.id}
-                      id={s.id}
-                      label={s.label}
-                      img={s.img}
-                      size={s.size}
-                      stackCount={cnt}
-                      disabled={!isCurrentStep || penReady}
-                    vertical={['inkrefill', 'spring', 'cone'].includes(s.id)}
-                    />
-                  )
-                })}
-              </div>
+              {/* 트레이 레이아웃: 축(상단 전체) / 잉크심(좌 tall) + 노크·스프링·선축(우 열) */}
+              {(() => {
+                const barrelCnt  = step > 0 ? 0 : remainCount()
+                const knockCnt   = (step > 1 || knockSub  >= 1) ? 0 : remainCount()
+                const inkCnt     = (step > 2 || inkSub    >= 1) ? 0 : remainCount()
+                const sprCnt     = (step > 3 || springSub >= 1) ? 0 : remainCount()
+                const coneCnt    = coneSub >= 1 ? 0 : remainCount()
+                const showRight  = knockCnt > 0 || sprCnt > 0 || coneCnt > 0
+                return (
+                  <div className={styles.trayLayout}>
+                    {barrelCnt > 0 && (
+                      <DraggablePart key="barrel" id="barrel" label={STEPS[0].label} img={STEPS[0].img}
+                        size={STEPS[0].size} stackCount={barrelCnt} disabled={step !== 0 || penReady} />
+                    )}
+                    {(inkCnt > 0 || showRight) && (
+                      <div className={styles.traySlotBottom}>
+                        {inkCnt > 0 && (
+                          <div className={styles.traySlotLeft}>
+                            <DraggablePart key="inkrefill" id="inkrefill" label={STEPS[2].label} img={STEPS[2].img}
+                              size={STEPS[2].size} stackCount={inkCnt} disabled={step !== 2 || penReady} vertical tall />
+                          </div>
+                        )}
+                        {showRight && (
+                          <div className={styles.traySlotRight}>
+                            {knockCnt > 0 && (
+                              <DraggablePart key="knock" id="knock" label={STEPS[1].label} img={STEPS[1].img}
+                                size={STEPS[1].size} stackCount={knockCnt} disabled={step !== 1 || penReady} />
+                            )}
+                            {sprCnt > 0 && (
+                              <DraggablePart key="spring" id="spring" label={STEPS[3].label} img={STEPS[3].img}
+                                size={STEPS[3].size} stackCount={sprCnt} disabled={step !== 3 || penReady} vertical />
+                            )}
+                            {coneCnt > 0 && (
+                              <DraggablePart key="cone" id="cone" label={STEPS[4].label} img={STEPS[4].img}
+                                size={STEPS[4].size} stackCount={coneCnt} disabled={step !== 4 || penReady} vertical />
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
 
             {/* 오른쪽: 작업대 */}
