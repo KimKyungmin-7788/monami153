@@ -164,6 +164,16 @@
 }
 .partCardTall {
   height: 100%;
+  padding: 0.25rem 0.15rem; /* 여백 최소화 */
+}
+/* tall 카드 안 세로 이미지: 크게 표시 */
+.partCardTall .partImgWrapVert {
+  width: 26px;
+  height: 160px;
+}
+.partCardTall .partImgVert {
+  width: 160px;
+  height: 26px;
 }
 
 /* ── 스택 래퍼 ── */
