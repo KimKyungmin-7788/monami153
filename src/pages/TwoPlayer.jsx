@@ -244,7 +244,18 @@ function PlayerPanel({ playerNum, count, onSubmit, submitted, timeOver }) {
 
       {/* 드래그 오버레이 */}
       <DragOverlay dropAnimation={null}>
-        {activePart ? (
+        {activePart && ['inkrefill', 'spring', 'cone'].includes(activePart.id) ? (
+          <div style={{ position: 'relative', width: '18px', height: '80px', overflow: 'visible' }}>
+            <img src={activePart.img} alt={activePart.label} style={{
+              position: 'absolute', width: '80px', height: '18px',
+              top: '50%', left: '50%',
+              transform: 'translate(-50%, -50%) rotate(90deg)',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 8px 20px rgba(0,0,0,0.28))',
+              pointerEvents: 'none', cursor: 'grabbing', userSelect: 'none',
+            }} />
+          </div>
+        ) : activePart ? (
           <img
             src={activePart.img}
             alt={activePart.label}
